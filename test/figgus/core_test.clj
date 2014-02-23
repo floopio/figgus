@@ -1,12 +1,14 @@
 (ns figgus.core-test
   (:require [clojure.test :refer :all]
-            [figgus.core :as cfg]))
+            [clojure.java.io :refer :all]
+            [figgus.core :as cfg]
+            [cheshire.core :refer :all]))
 
 (def ^:private test-config "test/test-config.json")
 
 (defn load-test-config [] (cfg/load-config test-config))
 
-(use-fixtures :once (fn [t] (load-test-config) (t)))
+(use-fixtures :each (fn [t] (load-test-config) (t)))
 
 (defn- with-mock-env [envs f]
   (with-redefs-fn {#'figgus.core/get-env (fn [e] (get envs e))}
@@ -71,3 +73,19 @@
             "Ensure the set env var overrides the set system property")
         (is (= "new-new-value" (cfg/get "sysenv.value" "DEFAULT"))
             "Ensure the set env var overrides the set system property, even when a default is provided")))))
+
+(defn- write-to-file [file data]
+  (with-open [wrtr (writer file)]
+    (.write wrtr (generate-string data))))
+
+(deftest test-reload-config
+  (testing "Testing that calling load-config with no params reloads the current config"
+    (let [tmp-file (.getPath (java.io.File/createTempFile "test" "json"))]
+      (is (nil? (cfg/get "temp-test")))
+      (write-to-file tmp-file {"temp-test" 12345})
+      (cfg/load-config tmp-file)
+      (is (= 12345 (cfg/get "temp-test")))
+      (write-to-file tmp-file {"temp-test" 54321})
+      ;; reload the configuration
+      (cfg/load-config)
+      (is (= 54321 (cfg/get "temp-test"))))))
