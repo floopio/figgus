@@ -89,3 +89,7 @@
       ;; reload the configuration
       (cfg/load-config)
       (is (= 54321 (cfg/get "temp-test"))))))
+
+(deftest test-load-config
+  (testing "Testing that an invalid location throws an exception")
+  (is (thrown? Exception (cfg/load-config "this-is-not-a-real-file-and-should-not-exist"))))
