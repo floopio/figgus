@@ -1,0 +1,11 @@
+{
+    "prop-int": 200,
+    "prop-str": "aaa",
+    "prop-vec": ["a", "b", "c", "d"],
+    "prop-map": {
+        "nested-prop": "bbb",
+        "prop2": {
+            "prop3": "ccc"
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "sysprop": "blah blah",
+    "sysenv": {
+        "value": "some-value"
+    },
+    "envprop": {
+        "value": "my-env-prop"
+    },
+    "propint": 1234,
+    "propstr": "This is a string...",
+    "propvec": ["a", "b", "c", "d", "e"],
+    "propmap": {
+        "mapint": 4321,
+        "mapvec": [4, 3, 2, 1],
+        "mapmap": {
+            "mapmapstr": "It's nested!"
+        }
+    }
+}
