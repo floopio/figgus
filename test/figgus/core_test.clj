@@ -6,7 +6,11 @@
 
 (def ^:private test-config "test/test-config.json")
 
-(defn load-test-config [] (cfg/load-config test-config))
+(defn load-test-config []
+  ;; Clear out used sysprops
+  (System/clearProperty "sysprop")
+  (System/clearProperty "sysenv.value")
+  (cfg/load-config test-config))
 
 (use-fixtures :each (fn [t] (load-test-config) (t)))
 
