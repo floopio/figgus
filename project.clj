@@ -9,6 +9,7 @@
                  [cheshire "5.2.0"]
                  [log4j/log4j "1.2.17"]
                  [org.clojure/tools.logging "0.2.6"]]
-  :plugins [[lein-cloverage "1.0.2"]]
+  :plugins [[lein-cloverage "1.0.2"]
+            [lein-kibit "0.0.8"]]
   :lein-release {:deploy-via :shell
                  :shell ["lein" "deploy" "clojars"]})
