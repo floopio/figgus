@@ -15,5 +15,12 @@
         "mapmap": {
             "mapmapstr": "It's nested!"
         }
+    },
+    "type-int": 1234,
+    "type-str": "string!",
+    "type-vec": [1, 2, "a", "b", 5],
+    "type-map": {
+        "k1": "v1",
+        "k2": "v2"
     }
 }

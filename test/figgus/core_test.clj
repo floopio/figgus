@@ -78,6 +78,44 @@
         (is (= "new-new-value" (cfg/get "sysenv.value" "DEFAULT"))
             "Ensure the set env var overrides the set system property, even when a default is provided")))))
 
+(deftest test-type-from-sysprops
+  (testing "Testing that we get the correct type back, even when from sysprops."
+    ;; numbers
+    (is (number? (cfg/get "type-int"))
+        "Ensure the starting state is correct")
+    (System/setProperty "type-int" "54321")
+    (is (number? (cfg/get "type-int"))
+        "Ensure the type is correct")
+    (is (= 54321 (cfg/get "type-int")))
+
+    ;; strings
+    (is (string? (cfg/get "type-str"))
+        "Ensure the starting state is correct")
+    (System/setProperty "type-str" "abcd efg")
+    (is (string? (cfg/get "type-str"))
+        "Ensure the type is correct")
+    (is (= "abcd efg" (cfg/get "type-str")))
+
+    ;; vectors and lists
+    (is (vector? (cfg/get "type-vec"))
+        "Ensure the starting state is correct")
+    (System/setProperty "type-vec" "[5 4 \"a\" 3]")
+    (is (vector? (cfg/get "type-vec"))
+        "Ensure the type is correct")
+    (is (= [5 4 "a" 3] (cfg/get "type-vec")))
+    (System/setProperty "type-vec" "(0 9 8 7)")
+    (is (list? (cfg/get "type-vec"))
+        "Ensure the type is correct")
+    (is (= '(0 9 8 7) (cfg/get "type-vec")))
+    
+    ;; maps
+    (is (map? (cfg/get "type-map"))
+        "Ensure the starting state is correct")
+    (System/setProperty "type-map" "{:a 1 :b 2 :c 3}")
+    (is (map? (cfg/get "type-map"))
+        "Ensure the type is correct")
+    (is (= {:a 1 :b 2 :c 3} (cfg/get "type-map")))))
+
 (defn- write-to-file [file data]
   (with-open [wrtr (writer file)]
     (.write wrtr (generate-string data))))

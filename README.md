@@ -1,6 +1,6 @@
 # figgus
 
-A Clojure library that handles reading configuration from json files (locally and remotely) and allowing system property overrides.
+A Clojure library that handles reading configuration from json files (locally and remotely) and allowing system property and environment variable overrides using clojure types.
 
 ## Usage
 
@@ -15,6 +15,24 @@ By default figgus looks for a file named `config.json`, this can be set to anyth
     (:require [figgus.core :as fig])
     (fig/get "some.property.name" "default-value")
     (fig/get "some.other.property")
+
+##### Types
+
+System properties and environment variables only allow you to set string values - where as the json config allows you to set typed values such as maps, numbers, vectors and strings.
+
+Figgus will attempt to convert the system properties and environment vars to one of those clojure types.
+
+For example, in a repl:
+
+    user=> (System/setProperty "foo.bars" "[:foo :bar :baz]")
+    nil
+    user=> (fig/get "foo.bars")
+    [:foo :bar :baz]
+    user=> (System/setProperty "foo.count" "3")
+    nil
+    user=> (fig/get "foo.count")
+    3
+    
 
 #### Reloading configuration
 
