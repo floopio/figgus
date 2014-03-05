@@ -2,7 +2,8 @@
   (:require [cheshire.core :refer :all]
             [clojure.string :as string]
             [clojure.tools.logging :as log]
-            [clojure.tools.reader.edn :as edn]))
+            [clojure.tools.reader.edn :as edn])
+  (:refer-clojure :exclude [get]))
 
 (def ^:private default-config "config.json")
 
