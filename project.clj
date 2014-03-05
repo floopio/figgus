@@ -11,6 +11,7 @@
                  [cheshire "5.2.0"]
                  [log4j/log4j "1.2.17"]]
   :plugins [[lein-cloverage "1.0.2"]
-            [lein-kibit "0.0.8"]]
+            [lein-kibit "0.0.8"]
+            [lein-release "1.0.5"]]
   :lein-release {:deploy-via :shell
                  :shell ["lein" "deploy" "clojars"]})
