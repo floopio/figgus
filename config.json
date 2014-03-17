@@ -1,6 +1,6 @@
 {
     "prop-int": 200,
-    "prop-str": "aaa",
+    "prop-str": "http://localhost:8080",
     "prop-vec": ["a", "b", "c", "d"],
     "prop-map": {
         "nested-prop": "bbb",

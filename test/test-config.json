@@ -7,7 +7,7 @@
         "value": "my-env-prop"
     },
     "propint": 1234,
-    "propstr": "This is a string...",
+    "propstr": "http://localhost:8080",
     "propvec": ["a", "b", "c", "d", "e"],
     "propmap": {
         "mapint": 4321,

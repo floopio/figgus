@@ -43,11 +43,15 @@
   "Takes a string representation of a value, and if it is a string attempts to turn it into its type.
    e.g. Takes the string \"[1 2 3]\" and returns a vector [1 2 3]" 
   (if (string? val)
-    (let [tval (edn/read-string val)]
-      ;; Only return the typed value if it is of one of our whitelisted types.
-      ;; Otherwise we return the string representation of it.
-      (if (reduce #(or %1 (%2 tval)) false [vector? number? list? map?])
-        tval
+    (try
+      (let [tval (edn/read-string val)]
+        ;; Only return the typed value if it is of one of our whitelisted types.
+        ;; Otherwise we return the string representation of it.
+        (if (reduce #(or %1 (%2 tval)) false [vector? number? list? map?])
+          tval
+          val))
+      (catch clojure.lang.ExceptionInfo e
+        (log/debug "Unable to convert string to type:" val "- this is OK")
         val))
     val))
 

@@ -29,7 +29,7 @@
 
 (deftest test-get-prop-types
   (test-prop "propint" Integer 1234)
-  (test-prop "propstr" String "This is a string...")
+  (test-prop "propstr" String "http://localhost:8080")
   (test-prop "propvec" clojure.lang.PersistentVector ["a" "b" "c" "d" "e"])
   (test-prop "propmap.mapint" Integer 4321)
   (test-prop "propmap.mapvec" clojure.lang.PersistentVector [4 3 2 1])
