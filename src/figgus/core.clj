@@ -13,6 +13,8 @@
 
 (def ^:private config-location (ref default-config))
 
+(def ^:private initialized? (ref false))
+
 (defn get-env [key]
   (System/getenv key))
 
@@ -24,6 +26,7 @@
      "Loads the configuration from the given location. Raises an exception if the location could not be found."
      (dosync
       (log/info "Loading configuration:" loc)
+      (alter initialized? (fn [_] true))
       (alter config (fn [_] (-> loc slurp parse-string)))
       (alter config-location (fn [_] loc))
       nil)))
@@ -55,17 +58,6 @@
         val))
     val))
 
-(defn get
-  ([key]
-     "Return the value of the key, resolving system properties and then loaded properties. Returns nil if it is not found."
-     (get key nil))
-  ([key default-value]
-     "Return the value of the key, resolving system properties and then loaded properties. Returns default-value if it is not found."
-     (if-let [val (locate-value key)]
-       (str->type val)
-       default-value)))
-
-;; Init, loading the default config if it exists.
 (defn- init []
   (try
     (log/info "Loading default config")
@@ -73,9 +65,14 @@
     (catch Exception e
       (log/warn "Unable to load the default configuration:" (.getMessage e))))
   nil)
-(init)
 
-
-
-
-
+(defn get
+  ([key]
+     "Return the value of the key, resolving system properties and then loaded properties. Returns nil if it is not found."
+     (get key nil))
+  ([key default-value]
+     "Return the value of the key, resolving system properties and then loaded properties. Returns default-value if it is not found."
+     (when-not @initialized? (init))
+     (if-let [val (locate-value key)]
+       (str->type val)
+       default-value)))
