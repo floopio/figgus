@@ -6,7 +6,7 @@ A Clojure library that handles reading configuration from json files (locally an
 
 #### Leiningen
 
-    [io.floop/figgus "0.2.3"]
+    [io.floop/figgus "0.2.5"]
 
 #### Using it
 
