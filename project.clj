@@ -1,4 +1,4 @@
-(defproject io.floop/figgus "0.2.5"
+(defproject io.floop/figgus "0.2.6-SNAPSHOT"
   :description "A library for reading configuration from system properties and other locations."
   :url "http://github.com/floopio/figgus"
   :scm {:name "git"
