@@ -60,10 +60,10 @@
 
 (defn- init []
   (try
-    (log/info "Loading default config")
+    (log/debug "Loading default config")
     (load-config (System/getProperty default-config-sysprop default-config))
     (catch Exception e
-      (log/warn "Unable to load the default configuration:" (.getMessage e))))
+      (log/debug "Unable to load the default configuration:" (.getMessage e))))
   nil)
 
 (defn get
