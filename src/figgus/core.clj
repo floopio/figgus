@@ -5,15 +5,15 @@
             [clojure.tools.reader.edn :as edn])
   (:refer-clojure :exclude [get]))
 
-(def ^:private default-config "config.json")
+(defonce ^:private default-config "config.json")
 
-(def ^:private default-config-sysprop "figgus.config")
+(defonce ^:private default-config-sysprop "figgus.config")
 
-(def ^:private config (ref {}))
+(defonce ^:private config (ref {}))
 
-(def ^:private config-location (ref default-config))
+(defonce ^:private config-location (ref default-config))
 
-(def ^:private initialized? (ref false))
+(defonce ^:private initialized? (ref false))
 
 (defn get-env [key]
   (System/getenv key))
